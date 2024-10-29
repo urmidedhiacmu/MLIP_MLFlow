@@ -6,8 +6,20 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.tree import DecisionTreeClassifier
+
 import numpy as np
 import pandas as pd
+
+def generate_model_name(name: str = "", params = None) -> str:
+    params = params if params is not None else {
+        "solver": "lbfgs",
+        "max_iter": 1000,
+        "multi_class": "auto",
+        "random_state": 8888,
+    }
+    return name if len(name) > 0 else "IRIS_Model_" + str(hash(str(params))%1000)
 
 def data_preprocessing()-> tuple[np.ndarray]:
     """Generate IRIS dataset's train and test dataset
@@ -66,6 +78,66 @@ with mlflow.start_run():
     lr = LogisticRegression(**params)
     lr.fit(X_train, y_train)
     return lr
+
+def train_random_forest_classifier(
+    X_train: np.ndarray,
+    y_train: np.ndarray,
+    params: dict = {"n_estimators": 100, "random_state": 42}
+) -> RandomForestClassifier:
+    """Function that generates a trained random forest classifier model
+    based on the training dataset and hyperparameters.
+
+    Args:
+        X_train (np.ndarray): Training dataset of shape (data point num, feature dim) 
+        y_train (np.ndarray): Training labels of shape (data point num, 1)
+        params (dict): Parameters for the random forest classifier
+
+    Returns:
+        RandomForestClassifier: Trained sklearn random forest model
+    """
+    rf = RandomForestClassifier(**params)
+    rf.fit(X_train, y_train)
+    return rf
+
+def train_random_forest_regressor(
+    X_train: np.ndarray,
+    y_train: np.ndarray,
+    params: dict = {"n_estimators": 100, "random_state": 42}
+) -> RandomForestRegressor:
+    """Function that generates a trained random forest classifier model
+    based on the training dataset and hyperparameters.
+
+    Args:
+        X_train (np.ndarray): Training dataset of shape (data point num, feature dim) 
+        y_train (np.ndarray): Training labels of shape (data point num, 1)
+        params (dict): Parameters for the random forest classifier
+
+    Returns:
+        RandomForestClassifier: Trained sklearn random forest model
+    """
+    rf = RandomForestRegressor(**params)
+    rf.fit(X_train, y_train)
+    return rf
+
+def train_decision_tree_classifier(
+    X_train: np.ndarray,
+    y_train: np.ndarray,
+    params: dict = {"random_state": 42}
+) -> DecisionTreeClassifier:
+    """Function that generates a trained decision tree classifier model
+    based on the training dataset and hyperparameters.
+
+    Args:
+        X_train (np.ndarray): Training dataset of shape (data point num, feature dim) 
+        y_train (np.ndarray): Training labels of shape (data point num, 1)
+        params (dict): Parameters for the decision tree classifier
+
+    Returns:
+        RandomForestClassifier: Trained sklearn decision tree model
+    """
+    rf = DecisionTreeClassifier(**params)
+    rf.fit(X_train, y_train)
+    return rf
 
 def evaluation(
     model: LogisticRegression,
