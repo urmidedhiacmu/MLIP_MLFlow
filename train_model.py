@@ -36,14 +36,14 @@ run_name=None # You can specify a run name or let MLFlow choose one for you.
 with mlflow.start_run(run_name=run_name):
     mlflow.log_params(params)
     mlflow.log_metric("accuracy", accuracy)
-    mlflow.set_tag("Training Info", "Basic LR model for iris data")
+    mlflow.set_tag("Training Info", "Basic LR model for digits_model data")
     # Infer the model signature
     signature = infer_signature(X_train, trained_model.predict(X_train))
     # Log the model
     model_info = mlflow.sklearn.log_model(
         sk_model=trained_model,
-        artifact_path="iris_model",
+        artifact_path=None, # TODO: Set the artifact path appropriately as a string
         signature=signature,
         input_example=X_train,
-        registered_model_name=pipeline.generate_model_name(),
+        registered_model_name=pipeline.generate_model_name(), # Optional TODO: Replace with a static name if needed
     )

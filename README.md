@@ -8,8 +8,9 @@ MLFLow is a powerful tool that enables practices aligned with MLOps principles. 
 
 - [ ] Set up Local MLFlow Server and complete the `train_model.py` file. Show the registered model at [http://127.0.0.1:6001/#/models](http://127.0.0.1:6001/#/models)
 - [ ] Complete `load_model.py`. Show uploaded experiment runs (on MLFlow web page) and the console output of running `load_model.py`
-- [ ] Update the training pipeline and register a new version of the model in deliverable 1. Add a meaningful description and explain your choice of classification model to the TA.
-- [ ] Deploy the MLFlow model as a docker container. Show TA the console output of running `./test_inference.sh`.
+- [ ] Update the training pipeline and register a new version of the model in deliverable 1. Add a meaningful description or tag and explain your choice of classification model to the TA.
+
+### Optional Deliverable
 
 ### Environment Setup
 
@@ -46,7 +47,7 @@ Modify `train_model.py`:
 
 1. Complete the TODO to extract the train and test dataset from `pipeline.data_preprocessing()`
 2. Complete the TODO to obtain trained model from `pipeline.train_logistic_regression()`. This function outputs a fitted regressor.
-3. Complete the TODO in Line 36 to obtain accuracy score from `pipeline.evaluation`. This function accepts X_test, y_test, model and output a float type accuracy score.
+3. Complete the TODO to obtain accuracy score from `pipeline.evaluation`. This function accepts X_test, y_test, model and output a float type accuracy score.
 
 #### Complete the Inference Pipeline
 
@@ -77,15 +78,38 @@ Modify `load_model.py`:
    > To update the model, you can use a different training algorithm in the training pipeline.
    > Justify your choice of new training algorithm to the TA.
 
-### Deploy MLFlow Registered Model as Docker Container [Optional / Leave Out]
+## Optional Deliverables
 
-Now, we use MLFlow to help us with deployment. MLFlow can pack a registered model into a docker container server. It also provides inference protocol in [Local Inference Spec Page](https://mlflow.org/docs/latest/deployment/deploy-model-locally.html#local-inference-server-spec). Let us build a docker container based on run id we previously obtained in [Complete the loading process](#Complete-the-loading-process).
+- [ ] Deploy the MLFlow model as a docker container. Run inference using `sh ./test_inference.sh`.
+
+### Deploy MLFlow Registered Model as Docker Container
+
+Use MLFlow to deploy aockerized container of the model. MLFlow can pack a registered model into a docker container server. It also provides inference protocol in [Local Inference Spec Page](https://mlflow.org/docs/latest/deployment/deploy-model-locally.html#local-inference-server-spec). Let us build a docker container based on run id we previously obtained in [Complete the loading process](#Complete-the-loading-process).
 
 1. First, run `export MLFLOW_TRACKING_URI=<Your tracking server uri>` to let the MLFlow CLI know the tracking server endpoint.
-2. According to [MLFlow models documentation](https://mlflow.org/docs/latest/cli.html?highlight=docker#mlflow-models-build-docker), run `mlflow models build-docker --model-uri "<Previously obtained runs:/ uri>" --name "lab7"` to build the docker image.
-3. Run `sudo docker run -p 6002:8080 "lab7"` to launch the server.
+2. According to [MLFlow models documentation](https://mlflow.org/docs/latest/cli.html?highlight=docker#mlflow-models-build-docker), run `mlflow models build-docker --model-uri "<Previously obtained runs:/ uri>" --name "lab8"` to build the docker image.
+3. Run `sudo docker run -p 6002:8080 "lab8"` to launch the server.
 4. Run `./test_inference.sh` to send a test inference to the server. **Show TA the console output of test inference for deliverable 3.**
 
-## Additional Reading
+### Use Databricks free MLFlow Server
+
+For a group project, a cloud server is better at team collaboration than local server.
+
+1. Go to the [login page of Databricks CE](https://community.cloud.databricks.com/login.html)
+2. Click on ==Sign Up== at the right bottom of the login box
+3. Fill out all the necessary information. Remeber to choose community edition instead of any cloud services.
+   When you set tracking server, instead of running `mlflow.set_tracking_uri("<your tracking server uri>")` in the python script, you should run `mlflow.login` and provide:
+
+- Databricks Host: https://community.cloud.databricks.com/
+- Username: Your Databricks CE email address.
+- Password: Your Databricks CE password.
+
+## References and recommended reading
 
 [Explore MLFlow with Databricks](https://mlflow.org/blog/databricks-ce)
+
+### FAQs
+
+#### Bugs
+
+- Will be added if/when bugs are reported.
