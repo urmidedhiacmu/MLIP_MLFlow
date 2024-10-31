@@ -10,8 +10,6 @@ MLFLow is a powerful tool that enables practices aligned with MLOps principles. 
 - [ ] Complete `load_model.py`. Show uploaded experiment runs (on MLFlow web page) and the console output of running `load_model.py`
 - [ ] Update the training pipeline and register a new version of the model in deliverable 1. Add a meaningful description or tag and explain your choice of classification model to the TA.
 
-### Optional Deliverable
-
 ### Environment Setup
 
 In this step, we create a virtual environment, install MLFlow, and set up a tracking server. To begin this section, please clone [MLIP MLFlow Lab](https://github.com/Rajeevveera24/MLIP_MLFlow) and navigate to the cloned directory. Then, run the steps below to set up the environment.
