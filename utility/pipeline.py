@@ -9,6 +9,14 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
+def generate_model_name() -> str:
+    """Generate a model name based on the current time
+
+    Returns:
+        str: model name
+    """
+    # Generate a random hex string as the model name
+    return hex(np.random.randint(0, 16**8))[2:]
 
 def data_preprocessing() -> tuple[np.ndarray]:
     """Generate digits dataset's train and test dataset

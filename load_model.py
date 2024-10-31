@@ -13,7 +13,8 @@ logged_model = ___________________
 loaded_model = mlflow.sklearn.load_model(logged_model)
 
 # Input a random datapoint
-data=np.array([[1.0,2.0,3.0,4.0]])
+np.random.seed(42)
+data = np.random.rand(1, 64)
 
 # TODO: Predict on a Pandas DataFrame. Due to the MLFlow functionality constrain.
 #       The loaded model's predict function only accept dataframe as input instead of numpy array.
