@@ -1,5 +1,4 @@
 import mlflow
-import pandas as pd
 import numpy as np
 
 # TODO: Set tht MLFlow server uri
@@ -16,9 +15,8 @@ loaded_model = mlflow.sklearn.load_model(logged_model)
 np.random.seed(42)
 data = np.random.rand(1, 64)
 
-# TODO: Predict on a Pandas DataFrame. Due to the MLFlow functionality constrain.
-#       The loaded model's predict function only accept dataframe as input instead of numpy array.
-prediction=loaded_model.predict(___________)
+# TODO: Predict the output for the data. You might need to use a pandas DataFrame due to a constraint from MLFlow.
+prediction = loaded_model.predict(___________)
 
 # Print out prediction result
 print(prediction)
